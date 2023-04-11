@@ -8,7 +8,7 @@ setup(
   license='MIT',        # Chose a license from here: https://help.github.com/articles/licensing-a-repository
   description = 'Private SDK to connect to the Easycheck Monitor',   # Give a short description about your library
   author = 'Jesus Rojas',                   # Type in your name
-  author_email = 'jrojas@doiteasy.pe',      # Type in your E-Mail
+  author_email = 'jora2415@gmail.com',      # Type in your E-Mail
   url = 'https://github.com/kamicase24',   # Provide either the link to your github or to your website
   download_url = 'https://github.com/kamicase24/easycheck/archive/refs/tags/alpha.tar.gz',    # I explain this later on
   keywords = ['MONITOR', 'SDK', 'API'],   # Keywords that define your package best
