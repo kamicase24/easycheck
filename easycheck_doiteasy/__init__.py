@@ -1,1 +1,0 @@
-from easycheck_doiteasy import Easycheck

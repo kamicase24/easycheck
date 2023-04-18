@@ -5,9 +5,17 @@ logging = logging.getLogger(__name__)
 
 
 
-class Easycheck():
+class MainMonitror():
 
     def __init__(self, token):
+        """
+        Constructor for the Monitor class.
+        Parameters:
+        token (str): The authentication token for the ETLCheck API.
+        Attributes:
+        token (str): The provided authentication token.
+        domain (str): The default domain URL for API calls.
+        """
         self.token = token
         self.domain = 'https://etlcheck.com'
 
