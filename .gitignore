@@ -1,0 +1,4 @@
+dist
+dist/*
+easycheck_doiteasy.egg-info
+easycheck_doiteasy.egg-info/*
