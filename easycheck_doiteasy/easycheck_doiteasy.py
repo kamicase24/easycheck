@@ -56,6 +56,43 @@ class MainMonitror():
         except Exception as e:
             logging.error(e)
 
+    
+    def send_subejecution(self, name, duration, start_datetime, end_datetime, total_register, successful):
+        """
+        Sends execution data to an ejecution line API endpoint.
+
+        Parameters:
+        - name (str): The name of the execution.
+        - duration (str): The duration of the execution in seconds.
+        - start_datetime (str): The start datetime of the execution in ISO format (e.g. '2023-04-12T10:30:00Z').
+        - end_datetime (str): The end datetime of the execution in ISO format (e.g. '2023-04-12T11:00:00Z').
+        - destination (str): The destination of the execution.
+        - total_register (int): The total number of registers processed during the execution.
+        - successful (bool): Whether the execution was successful or not.
+        Returns:
+        - None
+        Raises:
+        - This method may raise an exception if the HTTP request to the API endpoint fails for any reason. In this case, an error message will be logged.
+        """    
+        headers = {}
+        domain = self.domain
+        path = '/api/base/ejecution_line/send/'
+        url = f'{domain}{path}'
+        data = {
+            'name': name,
+            'duration': duration,
+            'start_datetime': start_datetime,
+            'end_datetime': end_datetime,
+            'total_register': total_register,
+            'successful': successful,
+            'register_token': self.token
+        }
+        try:
+            requests.post(url, data=data, headers=headers)
+        except Exception as e:
+            logging.error(e)
+
+
 
     def update_logs_directories(self, logs_dir):
 
