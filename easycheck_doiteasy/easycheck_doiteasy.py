@@ -18,6 +18,7 @@ class MainMonitror():
         """
         self.token = token
         self.domain = 'https://etlcheck.com'
+        self.ejecution_line_ids = []
 
 
     def send_ejecution(self, name, duration, start_datetime, end_datetime, destination, total_register, successful):
@@ -51,6 +52,10 @@ class MainMonitror():
             'successful': successful,
             'register_token': self.token
         }
+
+        if len(self.ejecution_line_ids) > 0:
+            data.update({'ejecution_line_ids': self.ejecution_line_ids})
+        self.ejecution_line_ids = []
         try:
             requests.post(url, data=data, headers=headers)
         except Exception as e:
@@ -88,7 +93,9 @@ class MainMonitror():
             'register_token': self.token
         }
         try:
-            requests.post(url, data=data, headers=headers)
+            res = requests.post(url, data=data, headers=headers)
+            if res.status_code == 200:
+                self.ejecution_line_ids.append(res['id'])
         except Exception as e:
             logging.error(e)
 
