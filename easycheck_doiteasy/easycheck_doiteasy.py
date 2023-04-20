@@ -95,7 +95,7 @@ class MainMonitror():
         try:
             res = requests.post(url, data=data, headers=headers)
             if res.status_code == 200:
-                self.ejecution_line_ids.append(res['id'])
+                self.ejecution_line_ids.append(res.json()['id'])
         except Exception as e:
             logging.error(e)
 
