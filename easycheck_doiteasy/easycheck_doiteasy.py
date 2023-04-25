@@ -62,7 +62,7 @@ class MainMonitror():
             logging.error(e)
 
     
-    def send_subejecution(self, name, duration, start_datetime, end_datetime, total_register, successful):
+    def send_subejecution(self, name, duration, start_datetime, end_datetime, total_register, file_size, successful):
         """
         Sends execution data to an ejecution line API endpoint.
 
@@ -73,6 +73,7 @@ class MainMonitror():
         - end_datetime (str): The end datetime of the execution in ISO format (e.g. '2023-04-12T11:00:00Z').
         - destination (str): The destination of the execution.
         - total_register (int): The total number of registers processed during the execution.
+        - file_size (float): The size of the file
         - successful (bool): Whether the execution was successful or not.
         Returns:
         - None
@@ -89,6 +90,7 @@ class MainMonitror():
             'start_datetime': start_datetime,
             'end_datetime': end_datetime,
             'total_register': total_register,
+            'file_size': file_size,
             'successful': successful,
             'register_token': self.token
         }
