@@ -1,3 +1,4 @@
+from datetime import timedelta, datetime
 import requests
 import os
 import logging
@@ -21,7 +22,7 @@ class MainMonitror():
         self.ejecution_line_ids = []
 
 
-    def send_ejecution(self, name, duration, start_datetime, end_datetime, destination, total_register, successful):
+    def send_ejecution(self, name: str, duration: timedelta, start_datetime: datetime, end_datetime: datetime, destination: str, total_register: int, successful: bool):
         """
         Sends execution data to a specified API endpoint.
 
@@ -62,24 +63,23 @@ class MainMonitror():
             logging.error(e)
 
     
-    def send_subejecution(self, name, duration, start_datetime, end_datetime, total_register, file_size, successful):
+    def send_subejecution(self, name: str, duration: float, start_datetime: str, end_datetime: str, total_register: int, file_size: int, successful: bool, state: str): 
         """
-        Sends execution data to an ejecution line API endpoint.
-
-        Parameters:
-        - name (str): The name of the execution.
-        - duration (str): The duration of the execution in seconds.
-        - start_datetime (str): The start datetime of the execution in ISO format (e.g. '2023-04-12T10:30:00Z').
-        - end_datetime (str): The end datetime of the execution in ISO format (e.g. '2023-04-12T11:00:00Z').
-        - destination (str): The destination of the execution.
-        - total_register (int): The total number of registers processed during the execution.
-        - file_size (float): The size of the file
-        - successful (bool): Whether the execution was successful or not.
+        Sends the subexecution details to the API endpoint.
+        Args:
+            name (str): The name of the subexecution.
+            duration (float): The duration of the subexecution in seconds.
+            start_datetime (str): The start datetime of the subexecution in ISO format.
+            end_datetime (str): The end datetime of the subexecution in ISO format.
+            total_register (int): The total number of records processed.
+            file_size (int): The size of the input file in bytes.
+            successful (bool): True if the subexecution was successful, False otherwise.
+            state (str): The current state of the subexecution. Possible values are "init", "processing", and "completed".
         Returns:
-        - None
+            None
         Raises:
-        - This method may raise an exception if the HTTP request to the API endpoint fails for any reason. In this case, an error message will be logged.
-        """    
+            Exception: If there is an error while sending the subexecution details.
+        """
         headers = {}
         domain = self.domain
         path = '/api/base/ejecution_line/send/'
@@ -92,6 +92,7 @@ class MainMonitror():
             'total_register': total_register,
             'file_size': file_size,
             'successful': successful,
+            'state': state,
             'register_token': self.token
         }
         try:
