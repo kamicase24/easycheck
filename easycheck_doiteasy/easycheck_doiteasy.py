@@ -110,7 +110,7 @@ class MainMonitror():
     def create_subejecution(self, name: str):
         headers = {}
         domain = self.domain
-        path = '/api/base/ejecution_line/create/'
+        path = '/api/base/ejecution_line/create_ejecution/'
         url = f'{domain}{path}'
         data = {
             'name': name,
