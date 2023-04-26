@@ -20,6 +20,7 @@ class MainMonitror():
         self.token = token
         self.domain = 'https://etlcheck.com'
         self.ejecution_line_ids = []
+        self.active_ejecution_line_id = None
 
 
     def send_ejecution(self, name: str, duration: timedelta, start_datetime: datetime, end_datetime: datetime, destination: str, total_register: int, successful: bool):
@@ -95,6 +96,9 @@ class MainMonitror():
             'state': state,
             'register_token': self.token
         }
+        if self.active_ejecution_line_id:
+            data.update(id=self.active_ejecution_line_id)
+            self.active_ejecution_line_id = None
         try:
             res = requests.post(url, data=data, headers=headers)
             if res.status_code == 200:
@@ -103,6 +107,37 @@ class MainMonitror():
             logging.error(e)
 
 
+    def create_subejecution(self, name: str):
+        headers = {}
+        domain = self.domain
+        path = '/api/base/ejecution_line/create/'
+        url = f'{domain}{path}'
+        data = {
+            'name': name,
+            'state': 'init',
+            'register_token': self.token
+        }
+        try:
+            res = requests.post(url, data=data, headers=headers)
+            if res.status_code == 200:
+                self.active_ejecution_line_id = res.json()['id']
+        except Exception as e:
+            logging.error(e)
+
+
+    def update_subejecution(self, state: str):
+        headers = {}
+        domain = self.domain
+        path = '/api/base/ejecution_line/send/'
+        url = f'{domain}{path}'
+        data = {
+            'state': state,
+            'register_token': self.token
+        }
+        try:
+            requests.put(url, data=data, headers=headers)
+        except Exception as e:
+            logging.error(e)
 
     def update_logs_directories(self, logs_dir):
 
