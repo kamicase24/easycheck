@@ -131,6 +131,7 @@ class MainMonitror():
         path = '/api/base/ejecution_line/send/'
         url = f'{domain}{path}'
         data = {
+            'id': self.active_ejecution_line_id,
             'state': state,
             'register_token': self.token
         }
